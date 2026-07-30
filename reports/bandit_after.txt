@@ -1,0 +1,56 @@
+Run started:2026-07-30 17:23:31.315980+00:00
+
+Test results:
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: .\app_fixed.py:22:0
+21	import sqlite3
+22	import subprocess
+23	
+
+--------------------------------------------------
+>> Issue: [B603:subprocess_without_shell_equals_true] subprocess call - check for execution of untrusted input.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b603_subprocess_without_shell_equals_true.html
+   Location: .\app_fixed.py:92:13
+91	        timeout=5,
+92	        shell=False,
+93	    )
+94	    return {"exit_code": result.returncode}
+95	
+96	
+97	# --------------------------------------------------------------------- #
+98	# FIX-05 (was VULN-04): OS Command Injection (/backup)
+
+--------------------------------------------------
+>> Issue: [B603:subprocess_without_shell_equals_true] subprocess call - check for execution of untrusted input.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b603_subprocess_without_shell_equals_true.html
+   Location: .\app_fixed.py:116:4
+115	    dest = os.path.join(BACKUP_DIR, filename)
+116	    subprocess.Popen(["/usr/bin/tar", "-cf", dest, "/data"], shell=False)
+117	    return {"status": "backup started"}
+
+--------------------------------------------------
+
+Code scanned:
+	Total lines of code: 145
+	Total lines skipped (#nosec): 0
+	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 0
+
+Run metrics:
+	Total issues (by severity):
+		Undefined: 0
+		Low: 3
+		Medium: 0
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 3
+Files skipped (0):
